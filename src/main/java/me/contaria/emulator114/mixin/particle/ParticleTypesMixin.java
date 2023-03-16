@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(ParticleTypes.class)
 public abstract class ParticleTypesMixin {
 
+    // Reverts: "New particles: dripping_honey, falling_honey, falling_nectar, landing_honey."
     @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/ParticleTypes;register(Ljava/lang/String;Z)Lnet/minecraft/particle/DefaultParticleType;"), slice = @Slice(
             from = @At(value = "CONSTANT", args = "stringValue=dripping_honey")
     ))

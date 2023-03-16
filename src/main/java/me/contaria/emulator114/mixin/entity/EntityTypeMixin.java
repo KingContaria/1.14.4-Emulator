@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(EntityType.class)
 public abstract class EntityTypeMixin {
 
+    // Reverts: "Mobs: Bees"
     @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EntityType;register(Ljava/lang/String;Lnet/minecraft/entity/EntityType$Builder;)Lnet/minecraft/entity/EntityType;"), slice = @Slice(
             from = @At(value = "CONSTANT", args = "stringValue=bee"),
             to = @At(value = "CONSTANT", args = "stringValue=blaze")

@@ -12,11 +12,11 @@ import java.util.Objects;
 
 public final class Emulator114 implements ModInitializer {
 
-    public static Logger LOGGER = LogManager.getLogger();
-    public static ModContainer EMULATOR114 = Objects.requireNonNull(FabricLoader.getInstance().getModContainer("emulator114").orElse(null));
-    public static String NAME = EMULATOR114.getMetadata().getName();
-    public static Version VERSION = EMULATOR114.getMetadata().getVersion();
-    public static Path CONFIG = FabricLoader.getInstance().getConfigDir().resolve("emulator114");
+    public static final Logger LOGGER = LogManager.getLogger();
+    public static final ModContainer EMULATOR114 = Objects.requireNonNull(FabricLoader.getInstance().getModContainer("emulator114").orElse(null));
+    public static final String NAME = EMULATOR114.getMetadata().getName();
+    public static final Version VERSION = EMULATOR114.getMetadata().getVersion();
+    public static final Path CONFIG = FabricLoader.getInstance().getConfigDir().resolve("emulator114");
 
     @Override
     public void onInitialize() {

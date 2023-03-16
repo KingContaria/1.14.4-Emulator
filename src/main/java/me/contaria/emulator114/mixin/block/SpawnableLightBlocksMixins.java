@@ -22,7 +22,7 @@ public abstract class SpawnableLightBlocksMixins extends Block {
 
     // Bugreport: https://bugs.mojang.com/browse/MC-158843
     @MCBug("MC-158843")
-    @Deprecated
+    @SuppressWarnings("deprecation")
     @Override
     public boolean allowsSpawning(BlockState state, BlockView view, BlockPos pos, EntityType<?> type) {
         return super.allowsSpawning(state, view, pos, type);

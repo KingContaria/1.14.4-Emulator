@@ -31,6 +31,8 @@ public abstract class FurnaceMinecartEntityMixin extends AbstractMinecartEntity 
 
     @Shadow protected abstract double getMaxOffRailSpeed();
 
+    // Bugreport: https://bugs.mojang.com/browse/MC-51053
+    @MCBug("MC-51053")
     @Inject(method = "moveOnRail", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;sqrt(D)F", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void emulator114$slowDownOnCorners(BlockPos pos, BlockState state, CallbackInfo ci, double f, double g, Vec3d vec3d) {
         g = MathHelper.sqrt(g);
@@ -54,6 +56,8 @@ public abstract class FurnaceMinecartEntityMixin extends AbstractMinecartEntity 
         return Integer.MAX_VALUE;
     }
 
+    // Bugreport: https://bugs.mojang.com/browse/MC-112990
+    @MCBug("MC-112990")
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isClient()Z"))
     private boolean emulator114$setFuelClientSide(World world) {
         return false;

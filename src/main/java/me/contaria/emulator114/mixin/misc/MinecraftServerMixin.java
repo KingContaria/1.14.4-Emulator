@@ -11,7 +11,7 @@ public abstract class MinecraftServerMixin {
 
     // Bugreports: https://bugs.mojang.com/browse/MC-161132, https://bugs.mojang.com/browse/MC-158911
     @MCBug({"MC-161132", "MC-158911"})
-    @Redirect(method = {"loadWorldDataPacks", "reload"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;method_24154()V"))
+    @Redirect(method = {"loadWorldDataPacks", "reload"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;method_24154()V"), require = 2)
     private void emulator114$noInitializingBlockStateCache(MinecraftServer server) {
     }
 }

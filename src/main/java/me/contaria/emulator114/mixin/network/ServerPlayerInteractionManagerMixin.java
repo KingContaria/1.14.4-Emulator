@@ -17,8 +17,10 @@ public abstract class ServerPlayerInteractionManagerMixin {
     @Shadow public ServerPlayerEntity player;
     @Shadow private int failedStartMiningTime;
 
+    // Bugreport: https://bugs.mojang.com/browse/MC-151962, https://bugs.mojang.com/browse/MC-156197, https://bugs.mojang.com/browse/MC-136865
+    @MCBug({"MC-151962", "MC-156197", "MC-136865"})
     @ModifyVariable(method = "tryBreakBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;postMine(Lnet/minecraft/world/World;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;)V", shift = At.Shift.AFTER), ordinal = 1)
-    private ItemStack emulator114$noSilkTouchOrShearsOnLastUse(ItemStack itemStack) {
+    private ItemStack emulator114$noSilkTouchFortuneOrShearsOnLastUse(ItemStack itemStack) {
         return this.player.getMainHandStack().isEmpty() ? ItemStack.EMPTY : itemStack;
     }
 

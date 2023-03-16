@@ -17,6 +17,8 @@ public abstract class ArmorStandEntityMixin extends Entity {
         super(type, world);
     }
 
+    // Bugreport: https://bugs.mojang.com/browse/MC-112995
+    @MCBug("MC-112995")
     @Redirect(method = "interactAt", at = @At(value = "FIELD", target = "Lnet/minecraft/util/ActionResult;PASS:Lnet/minecraft/util/ActionResult;", ordinal = 0))
     private ActionResult emulator114$noUsingItemsWhenLookingAtArmorStand() {
         return ActionResult.SUCCESS;

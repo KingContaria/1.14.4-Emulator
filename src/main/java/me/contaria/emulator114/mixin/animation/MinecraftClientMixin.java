@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
 
+    // Reverts: "Added the hand use animation [...]: Dropping items from the hotbar"
     @Redirect(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;swingHand(Lnet/minecraft/util/Hand;)V"))
     private void emulator114$removeHandAnimationWhenDroppingItems(ClientPlayerEntity player, Hand hand) {
     }

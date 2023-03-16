@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(CommandManager.class)
 public abstract class CommandManagerMixin {
 
+    // Reverts: "/spectate"
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/command/SpectateCommand;register(Lcom/mojang/brigadier/CommandDispatcher;)V"))
     private void emulator114$removeSpectateCommand(CommandDispatcher<ServerCommandSource> dispatcher) {
     }

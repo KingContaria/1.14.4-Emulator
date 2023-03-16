@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(ExperienceOrbEntityRenderer.class)
 public abstract class ExperienceOrbEntityRendererMixin {
 
+    // Reverts: "Experience orbs: Now render as translucent again."
     @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getEntityTranslucent(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
     private static RenderLayer emulator114$noTranslucentXPOrb(Identifier identifier) {
         return RenderLayer.getEntityCutout(identifier);

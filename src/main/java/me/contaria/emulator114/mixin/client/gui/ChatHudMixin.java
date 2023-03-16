@@ -18,6 +18,7 @@ public abstract class ChatHudMixin {
     }
 
     // see above
+    @MCBug({"MC-134495", "MC-127573"})
     @Redirect(method = "getText", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;method_23677()Z"))
     private boolean emulator114$noCheckingChatVisibility(ChatHud hud) {
         return true;

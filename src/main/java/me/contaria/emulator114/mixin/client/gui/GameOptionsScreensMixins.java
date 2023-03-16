@@ -13,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 
+import java.util.Objects;
+
 @Mixin({
         AccessibilityScreen.class,
         ChatOptionsScreen.class,
@@ -36,6 +38,6 @@ public abstract class GameOptionsScreensMixins extends GameOptionsScreen {
             from = @At(value = "CONSTANT", args = "stringValue=gui.done")
     ), index = 5)
     private ButtonWidget.PressAction emulator114$onlyOpenParentScreenOnDoneButtonNotEsc(ButtonWidget.PressAction onPress) {
-        return button -> this.minecraft.openScreen(this.parent);
+        return button -> Objects.requireNonNull(this.minecraft).openScreen(this.parent);
     }
 }

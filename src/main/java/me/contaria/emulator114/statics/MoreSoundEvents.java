@@ -1,4 +1,4 @@
-package me.contaria.emulator114;
+package me.contaria.emulator114.statics;
 
 import net.minecraft.sound.SoundEvent;
 

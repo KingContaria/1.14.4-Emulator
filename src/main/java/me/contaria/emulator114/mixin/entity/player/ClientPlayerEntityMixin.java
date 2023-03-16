@@ -27,7 +27,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     // Bugreport: https://bugs.mojang.com/browse/MC-126856
     @MCBug("MC-126856")
     @Redirect(method = "method_22119", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;clipAtLedge()Z"))
-    private boolean emulator_breakAutoJump(ClientPlayerEntity player) {
+    private boolean emulator114$breakAutoJump(ClientPlayerEntity player) {
         return false;
     }
 }

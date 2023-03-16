@@ -1,5 +1,6 @@
 package me.contaria.emulator114.mixin.village.trading;
 
+import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.village.TradeOffers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public abstract class TradeOffersMixin {
 
     // Reverts: "Librarians now sell one bookshelf for nine emeralds, instead of three bookshelves for six emeralds."
+    // Bugreport: https://bugs.mojang.com/browse/MC-153334
+    @MCBug("MC-153334")
     @ModifyConstant(method = "method_16929", constant = @Constant(intValue = 9), slice = @Slice(
             from = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;BOOKSHELF:Lnet/minecraft/block/Block;", remap = true),
             to = @At(value = "FIELD", target = "Lnet/minecraft/item/Items;BOOK:Lnet/minecraft/item/Item;", remap = true)
@@ -20,6 +23,7 @@ public abstract class TradeOffersMixin {
     }
 
     // see above
+    @MCBug("MC-153334")
     @ModifyConstant(method = "method_16929", constant = @Constant(intValue = 1, ordinal = 0), slice = @Slice(
             from = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;BOOKSHELF:Lnet/minecraft/block/Block;", remap = true),
             to = @At(value = "FIELD", target = "Lnet/minecraft/item/Items;BOOK:Lnet/minecraft/item/Item;", remap = true)

@@ -11,6 +11,7 @@ public abstract class AbstractButtonWidgetMixin {
 
     @Shadow public abstract boolean isHovered();
 
+    // Reverts: "Highlighted buttons now have white text on them instead of yellow."
     @ModifyConstant(method = "renderButton", constant = @Constant(intValue = 16777215))
     private int emulator114$yellowButtonText(int constant) {
         return this.isHovered() ? 16777120 : 14737632;

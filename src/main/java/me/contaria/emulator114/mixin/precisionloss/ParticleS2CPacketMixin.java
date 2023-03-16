@@ -9,12 +9,14 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(ParticleS2CPacket.class)
 public abstract class ParticleS2CPacketMixin {
 
+    // Reverts: "The floating-point precision used for the location of where certain particles and entities appear has increased to 64-bit (double-precision), from 32-bit (single-precision)"
     @ModifyArg(method = "write", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/PacketByteBuf;writeDouble(D)Lio/netty/buffer/ByteBuf;"))
     private double emulator114$precisionLossOnBufWrite(double value) {
         return (float) value;
     }
 
-    @ModifyReturnValue(method = {"getX", "getY", "getZ"}, at = @At("RETURN"))
+    // see above
+    @ModifyReturnValue(method = {"getX", "getY", "getZ"}, at = @At("RETURN"), require = 3)
     private double emulator114$precisionLossOnGetter(double value) {
         return (float) value;
     }

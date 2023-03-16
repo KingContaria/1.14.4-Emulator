@@ -1,6 +1,8 @@
 package me.contaria.emulator114.mixin.client.gui;
 
 import me.contaria.emulator114.plugin.annotations.MCBug;
+import net.minecraft.client.gui.screen.CustomizeBuffetLevelScreen;
+import net.minecraft.client.gui.screen.CustomizeFlatLevelScreen;
 import net.minecraft.client.gui.screen.PresetsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.options.GameOptionsScreen;
@@ -10,6 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin({
         CreateWorldScreen.class,
+        CustomizeBuffetLevelScreen.class,
+        CustomizeFlatLevelScreen.class,
         GameOptionsScreen.class,
         PresetsScreen.class
 })

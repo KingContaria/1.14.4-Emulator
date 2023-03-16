@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(ExecuteCommand.class)
 public abstract class ExecuteCommandMixin {
 
-    // TODO: this is fucked
+    // Reverts: "Added subcommand /execute if predicate <predicate>"
     @Redirect(method = "addConditionArguments", at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;then(Lcom/mojang/brigadier/builder/ArgumentBuilder;)Lcom/mojang/brigadier/builder/ArgumentBuilder;", remap = false), slice = @Slice(
-            from = @At(value = "CONSTANT", args = "stringValue=predicate", ordinal = 0),
-            to = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;", remap = false)
+            from = @At(value = "CONSTANT", args = "stringValue=predicate", ordinal = 1),
+            to = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;")
     ))
     private static ArgumentBuilder<ServerCommandSource, ?> emulator114$removeExecuteCommandArguments(LiteralArgumentBuilder<ServerCommandSource> builder, ArgumentBuilder<ServerCommandSource, ?> predicateArgumentBuilder) {
         return builder;

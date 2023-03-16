@@ -20,6 +20,7 @@ public abstract class AccessibilityScreenMixin {
     @Mutable
     @Shadow @Final private static Option[] OPTIONS;
 
+    // Reverts: "Sneak and Sprint inputs can now be switched between Hold and Toggle mode in the Accessibility Options."
     @Inject(method = "<clinit>", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/screen/options/AccessibilityScreen;OPTIONS:[Lnet/minecraft/client/options/Option;", shift = At.Shift.AFTER))
     private static void emulator114$removeToggleOptions(CallbackInfo ci) {
         List<Option> options = Arrays.stream(OPTIONS).collect(Collectors.toList());

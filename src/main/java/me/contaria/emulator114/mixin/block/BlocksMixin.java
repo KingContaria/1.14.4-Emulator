@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(Blocks.class)
 public abstract class BlocksMixin {
 
+    // Reverts: "End stone bricks: Now have a hardness of 3. Now have a blast resistance of 9."
     // Bugreport: https://bugs.mojang.com/browse/MC-94013
     @MCBug("MC-94013")
     @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block$Settings;strength(FF)Lnet/minecraft/block/Block$Settings;"), slice = @Slice(

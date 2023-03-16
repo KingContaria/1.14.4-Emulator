@@ -1,4 +1,4 @@
-package me.contaria.emulator114.mixin.command.gamerules;
+package me.contaria.emulator114.mixin.gamerules;
 
 import net.minecraft.world.GameRules;
 import org.spongepowered.asm.mixin.Mixin;

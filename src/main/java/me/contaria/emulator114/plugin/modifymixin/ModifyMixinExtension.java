@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.transformer.ext.ITargetClassContext;
  * Allows developers to modify the mixin class by implementing {@link IModifyMixin}
  */
 public class ModifyMixinExtension implements IExtension {
+
     @Override
     public boolean checkActive(MixinEnvironment environment) {
         return true;

@@ -24,12 +24,15 @@ public abstract class SlimeEntityMixin extends MobEntity {
     @Shadow public abstract int getSize();
 
     // Reverts: "Now use the generic.attackDamage attribute."
+    // Bugreport: https://bugs.mojang.com/browse/MC-47091
+    @MCBug("MC-47091")
     @Redirect(method = "initAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/AbstractEntityAttributeContainer;register(Lnet/minecraft/entity/attribute/EntityAttribute;)Lnet/minecraft/entity/attribute/EntityAttributeInstance;"))
     private EntityAttributeInstance emulator114$removeGenericAttackDamageAttribute(AbstractEntityAttributeContainer container, EntityAttribute attribute) {
         return null;
     }
 
     // see above
+    @MCBug("MC-47091")
     @Redirect(method = "setSize", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/EntityAttributeInstance;setBaseValue(D)V"), slice = @Slice(
             from = @At(value = "FIELD", target = "Lnet/minecraft/entity/attribute/EntityAttributes;ATTACK_DAMAGE:Lnet/minecraft/entity/attribute/EntityAttribute;")
     ))
@@ -37,6 +40,7 @@ public abstract class SlimeEntityMixin extends MobEntity {
     }
 
     // see above
+    @MCBug("MC-47091")
     @Redirect(method = "getDamageAmount", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/EntityAttributeInstance;getValue()D"))
     private double emulator114$removeGenericAttackDamageAttribute(EntityAttributeInstance attribute) {
         return this.getSize();

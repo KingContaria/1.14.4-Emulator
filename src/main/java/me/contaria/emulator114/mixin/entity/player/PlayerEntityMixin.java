@@ -2,6 +2,7 @@ package me.contaria.emulator114.mixin.entity.player;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerAbilities;
@@ -43,11 +44,13 @@ public abstract class  PlayerEntityMixin extends LivingEntity {
     private void emulator114$noSettingSpawnAtDayTime(PlayerEntity player, BlockPos blockPos, boolean bl, boolean bl2) {
     }
 
-    // Reverts: "Setting the respawn point by using a bed now shows the message "Respawn point set" in chat."
+    // Reverts: "Setting the respawn point by using a bed now shows the message 'Respawn point set' in chat."
     @Redirect(method = "setPlayerSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;sendMessage(Lnet/minecraft/text/Text;)V"))
     private void emulator114$noSpawnSetMessage(PlayerEntity player, Text text) {
     }
 
+    // Bugreport: https://bugs.mojang.com/browse/MC-167235
+    @MCBug("MC-167235")
     @ModifyConstant(method = "method_24278", constant = @Constant(doubleValue = 0.5))
     private double emulator114$offCenterSleepingDistance(double constant) {
         return 0.0;

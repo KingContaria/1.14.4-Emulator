@@ -19,6 +19,8 @@ public abstract class WolfEntityMixin {
     private void emulator114$noHealingOnTamed(WolfEntity instance, float v) {
     }
 
+    // Bugreport: https://bugs.mojang.com/browse/MC-166047
+    @MCBug("MC-166047")
     @SuppressWarnings("InvalidInjectorMethodSignature")
     @ModifyConstant(method = "canAttackWithOwner", constant = @Constant(classValue = TameableEntity.class, ordinal = 0))
     private boolean emulator114$canAttackTamedParrots(Object reference, Class<?> constant) {

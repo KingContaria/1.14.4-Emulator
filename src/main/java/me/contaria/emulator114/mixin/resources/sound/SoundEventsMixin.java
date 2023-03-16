@@ -1,6 +1,7 @@
 package me.contaria.emulator114.mixin.resources.sound;
 
-import me.contaria.emulator114.MoreSoundEvents;
+import me.contaria.emulator114.statics.MoreSoundEvents;
+import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +18,9 @@ public abstract class SoundEventsMixin {
         return null;
     }
 
+    // Reverts: "Parrots: Can no longer imitate endermen, polar bears, wolves, and zombie pigmen."
+    // Bugreport: https://bugs.mojang.com/browse/MC-163400
+    @MCBug("MC-163400")
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void emulator114$registerMoreParrotSounds(CallbackInfo ci) {
         String imitate = "entity.parrot.imitate.";

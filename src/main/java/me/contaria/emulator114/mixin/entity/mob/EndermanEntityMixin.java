@@ -17,7 +17,7 @@ public abstract class EndermanEntityMixin {
 
     // Bugreport: https://bugs.mojang.com/browse/MC-101700
     @MCBug("MC-101700")
-    @Redirect(method = {"damage", "teleportRandomly"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isClient()Z"))
+    @Redirect(method = {"damage", "teleportRandomly"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isClient()Z"), require = 2)
     private boolean emulator114$desyncEnderman(World world) {
         return false;
     }
@@ -41,5 +41,12 @@ public abstract class EndermanEntityMixin {
     @ModifyConstant(method = "<init>", constant = @Constant(intValue = -2147483648))
     private int emulator114$noAngrySoundInFirst400Ticks(int minValue) {
         return 0;
+    }
+
+    // Bugreport: https://bugs.mojang.com/browse/MC-88209
+    @MCBug("MC-88209")
+    @Redirect(method = "onTrackedDataSet", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/EndermanEntity;method_22330()Z"))
+    private boolean emulator114$playStareSoundOnAttack(EndermanEntity enderman) {
+        return enderman.isAngry();
     }
 }

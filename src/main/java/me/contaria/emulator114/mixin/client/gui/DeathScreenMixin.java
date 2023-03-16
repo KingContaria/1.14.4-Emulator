@@ -24,8 +24,8 @@ public abstract class DeathScreenMixin extends Screen {
         super(title);
     }
 
-    // Bugreport: https://bugs.mojang.com/browse/MC-30646
-    @MCBug("MC-30646")
+    // Bugreports: https://bugs.mojang.com/browse/MC-30646, https://bugs.mojang.com/browse/MC-137297
+    @MCBug({"MC-30646", "MC-137297"})
     @Redirect(method = "method_19808", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/DeathScreen;quitLevel()V", remap = true), remap = false)
     private void emulator114$openTitleScreen(DeathScreen screen) {
         Objects.requireNonNull(this.minecraft).openScreen(new TitleScreen());

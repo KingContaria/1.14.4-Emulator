@@ -1,4 +1,4 @@
-package me.contaria.emulator114.mixin.command.gamerules;
+package me.contaria.emulator114.mixin.gamerules;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.GameRules;

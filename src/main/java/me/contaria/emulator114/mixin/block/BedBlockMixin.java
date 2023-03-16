@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(BedBlock.class)
 public abstract class BedBlockMixin {
 
+    // Reverts: "If a player tries to sleep in a bed that is occupied by a villager, the villager is now kicked out of the bed."
     @Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BedBlock;method_22357(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Z"))
     private boolean emulator114$noWakingUpVillagers(BedBlock bed, World world, BlockPos pos) {
         return false;

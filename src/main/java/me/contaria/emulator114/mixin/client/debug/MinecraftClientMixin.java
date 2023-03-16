@@ -1,6 +1,6 @@
 package me.contaria.emulator114.mixin.client.debug;
 
-import me.contaria.emulator114.ChunkRendererInfo;
+import me.contaria.emulator114.statics.ChunkRendererInfo;
 import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,11 +24,14 @@ public abstract class MinecraftClientMixin {
         return '.';
     }
 
+    // Reverts: "The biome blend setting is now shown in the debug overlay."
+    // Reverts: "Debug screen: The 'chunk updates' counter on the second line no longer appears."
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Ljava/lang/String;format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"), index = 0)
     private String emulator114$modifyDebugScreenString(String format) {
         return "%d fps (%d chunk update%s) T: %s%s%s%s%s";
     }
 
+    // see above
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Ljava/lang/String;format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"), index = 1)
     private Object[] emulator114$modifyDebugScreenStringArgs(Object[] args) {
         args[args.length - 1] = "";

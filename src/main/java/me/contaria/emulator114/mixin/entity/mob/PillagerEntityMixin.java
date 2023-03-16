@@ -1,5 +1,6 @@
 package me.contaria.emulator114.mixin.entity.mob;
 
+import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.entity.mob.PillagerEntity;
@@ -18,11 +19,15 @@ public abstract class PillagerEntityMixin extends IllagerEntity {
         super(type, world);
     }
 
+    // Bugreport: https://bugs.mojang.com/browse/MC-160367
+    @MCBug("MC-160367")
     @Override
     public boolean cannotDespawn() {
         return super.cannotDespawn() && this.inventory.isInvEmpty();
     }
 
+    // see above
+    @MCBug("MC-160367")
     @Override
     public boolean canImmediatelyDespawn(double distanceSquared) {
         return super.canImmediatelyDespawn(distanceSquared) && this.inventory.isInvEmpty();

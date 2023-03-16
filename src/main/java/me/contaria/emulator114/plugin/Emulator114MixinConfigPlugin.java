@@ -1,6 +1,7 @@
 package me.contaria.emulator114.plugin;
 
 import me.contaria.emulator114.Emulator114;
+import me.contaria.emulator114.plugin.annotations.Brittle;
 import me.contaria.emulator114.plugin.annotations.CannotDisable;
 import me.contaria.emulator114.plugin.annotations.MCBug;
 import me.contaria.emulator114.plugin.exceptions.CannotDisableException;
@@ -12,6 +13,7 @@ import net.fabricmc.loader.api.metadata.CustomValue;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.util.Annotations;
@@ -23,10 +25,44 @@ import java.util.*;
 
 public class Emulator114MixinConfigPlugin implements IMixinConfigPlugin, IModifyMixin {
 
-    private final List<String> disabledBugUnfixes = readConfigFile("disabled-bugunfixes.txt");
-    private final List<String> disabledMixinMethods = readConfigFile("disabled-mixinmethods.txt");
+    private static final Set<String> DISBABLED_BUG_UNFIXES = new HashSet<>();
+    private static final Set<String> DISABLED_MIXIN_METHODS = new HashSet<>();
 
-    private List<String> readConfigFile(String fileName) {
+    static {
+        DISBABLED_BUG_UNFIXES.addAll(readConfigFile("disabled-bugunfixes.txt"));
+        DISABLED_MIXIN_METHODS.addAll(readConfigFile("disabled-mixinmethods.txt"));
+
+        for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
+            try {
+                CustomValue customValue = mod.getMetadata().getCustomValues().get("emulator114");
+                if (customValue != null) {
+                    if (mod != Emulator114.EMULATOR114) {
+                        Emulator114.LOGGER.info("'{}' is disabling some of {}'s mixins.", mod, Emulator114.NAME);
+                    }
+                    CustomValue disabledBugUnfixes = customValue.getAsObject().get("disabled-bugunfixes");
+                    if (disabledBugUnfixes != null) {
+                        for (CustomValue disabledBugUnfix : disabledBugUnfixes.getAsArray()) {
+                            DISBABLED_BUG_UNFIXES.add(disabledBugUnfix.getAsString());
+                        }
+                    }
+                    CustomValue disabledMixinMethods = customValue.getAsObject().get("disabled-mixinmethods");
+                    if (disabledMixinMethods != null) {
+                        for (CustomValue disabledMixinMethod : disabledMixinMethods.getAsArray()) {
+                            DISABLED_MIXIN_METHODS.add(disabledMixinMethod.getAsString());
+                        }
+                    }
+                }
+            } catch (ClassCastException e) {
+                Emulator114.LOGGER.error("'{}' passed a wrongly formatted custom value for disabling {}'s mixins.", mod.getMetadata().getName(), Emulator114.NAME, e);
+            }
+        }
+
+        if (!DISBABLED_BUG_UNFIXES.isEmpty()) {
+            Emulator114.LOGGER.info("Please note that not all of {}'s Bug-Unfixes are properly annotated yet, so some bugs, while unfixed, might not be able to be fixed through the config.", Emulator114.NAME);
+        }
+    }
+
+    private static List<String> readConfigFile(String fileName) {
         Path path = Emulator114.CONFIG.resolve(fileName);
         if (Files.exists(path)) {
             try {
@@ -40,30 +76,6 @@ public class Emulator114MixinConfigPlugin implements IMixinConfigPlugin, IModify
 
     @Override
     public void onLoad(String mixinPackage) {
-        ModifyMixinBootstrap.init();
-
-        for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
-            try {
-                CustomValue customValue = mod.getMetadata().getCustomValues().get("emulator114");
-                if (customValue != null) {
-                    Emulator114.LOGGER.info("'{}' is disabling some of {}'s mixins.", mod, Emulator114.NAME);
-                    CustomValue disabledBugUnfixes = customValue.getAsObject().get("disabled-bugunfixes");
-                    if (disabledBugUnfixes != null) {
-                        for (CustomValue disabledBugUnfix : disabledBugUnfixes.getAsArray()) {
-                            this.disabledBugUnfixes.add(disabledBugUnfix.getAsString());
-                        }
-                    }
-                    CustomValue disabledMixinMethods = customValue.getAsObject().get("disabled-mixinmethods");
-                    if (disabledMixinMethods != null) {
-                        for (CustomValue disabledMixinMethod : disabledMixinMethods.getAsArray()) {
-                            this.disabledMixinMethods.add(disabledMixinMethod.getAsString());
-                        }
-                    }
-                }
-            } catch (ClassCastException e) {
-                Emulator114.LOGGER.error("'{}' passed a wrongly formatted custom value for disabling {}'s mixins.", mod.getMetadata().getName(), Emulator114.NAME);
-            }
-        }
     }
 
     @Override
@@ -108,7 +120,7 @@ public class Emulator114MixinConfigPlugin implements IMixinConfigPlugin, IModify
                 AnnotationNode mcBug = Annotations.getInvisible(method, MCBug.class);
                 if (mcBug != null) {
                     for (String bug : (Collection<String>) Annotations.getValue(mcBug)) {
-                        if (this.disabledBugUnfixes.contains(bug)) {
+                        if (DISBABLED_BUG_UNFIXES.contains(bug)) {
                             removeMixinMethod(mixinsToRemove, method, methodNameFromMixinPackageRoot);
                             Emulator114.LOGGER.info("Disabled '{}' mixin because it fixes {}.", method.name + method.desc, bug);
                             continue checking;
@@ -116,7 +128,7 @@ public class Emulator114MixinConfigPlugin implements IMixinConfigPlugin, IModify
                     }
                 }
 
-                if (this.disabledMixinMethods.contains(methodNameFromMixinPackageRoot) || this.disabledMixinMethods.contains(methodNameFromMixinPackageRoot + method.desc)) {
+                if (DISABLED_MIXIN_METHODS.contains(methodNameFromMixinPackageRoot) || DISABLED_MIXIN_METHODS.contains(methodNameFromMixinPackageRoot + method.desc)) {
                     removeMixinMethod(mixinsToRemove, method, methodNameFromMixinPackageRoot);
                     Emulator114.LOGGER.info("Disabled '{}' mixin.", method.name + method.desc);
                 }
@@ -133,6 +145,16 @@ public class Emulator114MixinConfigPlugin implements IMixinConfigPlugin, IModify
         AnnotationNode cannotDisable = Annotations.getInvisible(method, CannotDisable.class);
         if (cannotDisable != null) {
             throw new CannotDisableException(methodNameFromMixinPackageRoot, cannotDisable);
+        }
+        AnnotationNode shadow = Annotations.getInvisible(method, Shadow.class);
+        if (shadow != null) {
+            throw new CannotDisableException(methodNameFromMixinPackageRoot, "Annotated by @Shadow.");
+        }
+        if (method.name.equals("<init>")) {
+            throw new CannotDisableException(methodNameFromMixinPackageRoot, "Cannot disable constructors.");
+        }
+        if (Annotations.getInvisible(method, Brittle.class) != null) {
+            Emulator114.LOGGER.warn("'{}' is marked as brittle, please be sure you know what side effects you could be causing when disabling it!", methodNameFromMixinPackageRoot);
         }
         mixinsToRemove.add(method);
     }

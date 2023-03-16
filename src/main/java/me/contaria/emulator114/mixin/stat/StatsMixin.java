@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(Stats.class)
 public abstract class StatsMixin {
 
-    // Reverses: "Added statistics for anvil and grindstone interaction counts."
+    // Reverts: "Added statistics for anvil and grindstone interaction counts."
     @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/stat/Stats;register(Ljava/lang/String;Lnet/minecraft/stat/StatFormatter;)Lnet/minecraft/util/Identifier;"), slice = @Slice(
             from = @At(value = "CONSTANT", args = "stringValue=interact_with_anvil")
     ))

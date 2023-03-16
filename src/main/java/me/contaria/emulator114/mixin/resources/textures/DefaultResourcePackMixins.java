@@ -18,6 +18,7 @@ import java.io.InputStream;
 })
 public abstract class DefaultResourcePackMixins {
 
+    // Reverts texture changes
     @Inject(method = "findInputStream", at = @At("HEAD"), cancellable = true)
     private void emulator114$load114Textures(ResourceType type, Identifier id, CallbackInfoReturnable<InputStream> cir) {
         Emulator114.EMULATOR114.findPath(type.getDirectory() + "/" + id.getNamespace() + "/" + id.getPath()).ifPresent(path -> {

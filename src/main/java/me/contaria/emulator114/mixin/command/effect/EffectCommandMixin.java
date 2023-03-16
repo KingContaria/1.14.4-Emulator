@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(EffectCommand.class)
 public abstract class EffectCommandMixin {
 
+    // Reverts: "The /effect clear command now defaults to @s if no target argument is given."
     @Redirect(method = "register", at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;executes(Lcom/mojang/brigadier/Command;)Lcom/mojang/brigadier/builder/ArgumentBuilder;", remap = false))
     private static ArgumentBuilder<?, ?> emulator114$noDefault(LiteralArgumentBuilder<?> builder, Command<?> command) {
         return builder;

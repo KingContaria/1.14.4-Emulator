@@ -15,7 +15,7 @@ public abstract class SplashTextResourceSupplierMixin {
 
     // Reverts: "Added 3 new splash texts"
     @Inject(method = "apply(Ljava/util/List;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V", at = @At("HEAD"))
-    private void emulator_removeSplashes(List<String> splashes, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
+    private void emulator114$removeSplashes(List<String> splashes, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
         splashes.remove("In case it isn't obvious, foxes aren't players.");
         splashes.remove("Buzzy Bees!");
         splashes.remove("Minecraft Java Edition presents: Disgusting Bugs");

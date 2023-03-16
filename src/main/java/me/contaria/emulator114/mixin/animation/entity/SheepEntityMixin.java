@@ -1,6 +1,7 @@
 package me.contaria.emulator114.mixin.animation.entity;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.SheepEntity;
@@ -17,6 +18,8 @@ public abstract class SheepEntityMixin extends AnimalEntity {
         super(type, world);
     }
 
+    // Bugreport: https://bugs.mojang.com/browse/MC-160896
+    @MCBug("MC-160896")
     @ModifyReturnValue(method = "interactMob", at = @At(value = "RETURN", ordinal = 0))
     private boolean emulator114$removeHandAnimation(boolean bl, PlayerEntity player, Hand hand) {
         return super.interactMob(player, hand);

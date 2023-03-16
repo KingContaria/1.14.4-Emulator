@@ -13,10 +13,10 @@ public class CannotDisableException extends Exception {
     }
 
     public CannotDisableException(String method, AnnotationNode cannotDisable) {
-        this(method, Optional.ofNullable((String) Annotations.getValue(cannotDisable, "reason")).orElse("Annotated by @CannotDisable."));
+        this(method, Annotations.getValue(cannotDisable, "reason", "Annotated by @CannotDisable."));
     }
 
     public CannotDisableException(String method, String reason) {
-        super("'" + method + "' mixin can not be disabled: " + reason);
+        super("'" + method + "' can not be disabled: " + reason);
     }
 }
