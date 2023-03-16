@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "emulator114",
+  "version": "${version}",
+
+  "name": "1.14.4 Emulator",
+  "description": "Tries to emulate 1.14.4 behaviour on 1.15.2, not complete.",
+  "authors": [
+    "KingContaria"
+  ],
+
+  "license": "CC0-1.0",
+
+  "environment": "*",
+  "entrypoints": {
+    "preLaunch": [
+      "me.contaria.emulator114.plugin.modifymixin.ModifyMixinBootstrap::init",
+      "com.llamalad7.mixinextras.MixinExtrasBootstrap::init"
+    ],
+    "main": [
+      "me.contaria.emulator114.Emulator114"
+    ]
+  },
+  "mixins": [
+    "emulator114.mixins.json"
+  ],
+  "accessWidener" : "emulator114.accesswidener",
+  "custom": {
+    "emulator114": {
+      "disabled-bugunfixes": [
+      ],
+      "disabled-mixinmethods": [
+      ]
+    }
+  },
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "minecraft": "1.15.2"
+  }
+}
