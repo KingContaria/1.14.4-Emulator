@@ -9,8 +9,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(PlayerManager.class)
 public abstract class PlayerManagerMixin {
 
+    // Reverts: "doImmediateRespawn: Players respawn immediately without showing the death screen."
     @Redirect(method = "onPlayerConnect", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$RuleKey;)Z", ordinal = 0))
-    private boolean emulator114$removeImmediateRespawnGameRule(GameRules instance, GameRules.RuleKey<GameRules.BooleanRule> rule) {
+    private boolean emulator114$removeImmediateRespawnGameRule(GameRules rules, GameRules.RuleKey<GameRules.BooleanRule> rule) {
         return false;
     }
 }

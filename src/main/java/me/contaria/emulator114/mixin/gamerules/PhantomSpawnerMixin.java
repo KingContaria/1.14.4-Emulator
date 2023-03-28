@@ -9,8 +9,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(PhantomSpawner.class)
 public abstract class PhantomSpawnerMixin {
 
+    // Reverts: "doInsomnia: Whether phantoms can spawn in the nighttime."
     @Redirect(method = "spawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$RuleKey;)Z"))
-    private boolean emulator114$removeDoInsomniaGameRule(GameRules instance, GameRules.RuleKey<GameRules.BooleanRule> rule) {
+    private boolean emulator114$removeDoInsomniaGameRule(GameRules rules, GameRules.RuleKey<GameRules.BooleanRule> rule) {
         return true;
     }
 }

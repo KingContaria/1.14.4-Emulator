@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(GameRules.class)
 public abstract class GameRulesMixin {
 
+    // Reverts: "Gamerules: doInsomnia, doImmediateRespawn, drowningDamage, fallDamage, fireDamage, doPatrolSpawning, doTraderSpawning"
     @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/GameRules;register(Ljava/lang/String;Lnet/minecraft/world/GameRules$RuleType;)Lnet/minecraft/world/GameRules$RuleKey;"), slice = @Slice(
             from = @At(value = "CONSTANT", args = "stringValue=doInsomnia")
     ))

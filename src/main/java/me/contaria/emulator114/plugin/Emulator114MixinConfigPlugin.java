@@ -6,7 +6,6 @@ import me.contaria.emulator114.plugin.annotations.CannotDisable;
 import me.contaria.emulator114.plugin.annotations.MCBug;
 import me.contaria.emulator114.plugin.exceptions.CannotDisableException;
 import me.contaria.emulator114.plugin.modifymixin.IModifyMixin;
-import me.contaria.emulator114.plugin.modifymixin.ModifyMixinBootstrap;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;

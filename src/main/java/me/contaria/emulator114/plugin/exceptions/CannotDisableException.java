@@ -4,8 +4,6 @@ import me.contaria.emulator114.plugin.annotations.CannotDisable;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.spongepowered.asm.util.Annotations;
 
-import java.util.Optional;
-
 public class CannotDisableException extends Exception {
 
     public CannotDisableException(String method, CannotDisable cannotDisable) {
