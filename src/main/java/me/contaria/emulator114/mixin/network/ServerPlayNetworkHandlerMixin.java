@@ -7,8 +7,7 @@ import net.minecraft.block.entity.CommandBlockBlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(ServerPlayNetworkHandler.class)
 public abstract class ServerPlayNetworkHandlerMixin {
@@ -25,5 +24,14 @@ public abstract class ServerPlayNetworkHandlerMixin {
     private ItemEntity emulator114$setCreativeDespawnTime(ItemEntity item) {
         ((IItemEntity) item).emulator114$setCreativeDespawnTime();
         return item;
+    }
+
+    // Bugreport: https://bugs.mojang.com/browse/MC-153698
+    @MCBug("MC-153698")
+    @ModifyConstant(method = "onPlayerMove", constant = @Constant(doubleValue = 0.0, ordinal = 0), slice = @Slice(
+            from = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayNetworkHandler;method_20630(Lnet/minecraft/world/WorldView;)Z")
+    ))
+    private double emulator114$accumulateFallDamageWhenJumpingOnBoat(double zero) {
+        return Double.MAX_VALUE;
     }
 }
