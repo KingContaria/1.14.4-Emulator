@@ -18,6 +18,7 @@ public abstract class SheepEntityMixin extends AnimalEntity {
         super(type, world);
     }
 
+    // Reverts: "Added the hand use animation [...]: Shearing animals"
     // Bugreport: https://bugs.mojang.com/browse/MC-160896
     @MCBug("MC-160896")
     @ModifyReturnValue(method = "interactMob", at = @At(value = "RETURN", ordinal = 0))

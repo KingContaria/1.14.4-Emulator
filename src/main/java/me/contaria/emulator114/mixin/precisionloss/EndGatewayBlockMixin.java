@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(EndGatewayBlock.class)
 public abstract class EndGatewayBlockMixin {
 
+    // Reverts: "The floating-point precision used for the location of where certain particles and entities appear has increased to 64-bit [...]: End gateway particles"
     @ModifyVariable(method = "randomDisplayTick", at = @At("STORE"), slice = @Slice(
             to = @At(value = "INVOKE", target = "Ljava/util/Random;nextFloat()F", ordinal = 3)
     ))

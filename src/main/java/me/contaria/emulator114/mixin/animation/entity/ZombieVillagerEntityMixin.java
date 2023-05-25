@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(ZombieVillagerEntity.class)
 public abstract class ZombieVillagerEntityMixin {
 
+    // Reverts: "Added the hand use animation [...]: Curing zombie villagers"
     // Bugreport: https://bugs.mojang.com/browse/MC-161261
     @MCBug("MC-161261")
     @Redirect(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;swingHand(Lnet/minecraft/util/Hand;Z)V"))

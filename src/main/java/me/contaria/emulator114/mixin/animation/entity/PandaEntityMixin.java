@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(PandaEntity.class)
 public abstract class PandaEntityMixin {
 
+    // Reverts: "Added the hand use animation [...]: Feeding pandas"
     // Bugreport: https://bugs.mojang.com/browse/MC-161262
     @MCBug("MC-161262")
     @Redirect(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;swingHand(Lnet/minecraft/util/Hand;Z)V"))

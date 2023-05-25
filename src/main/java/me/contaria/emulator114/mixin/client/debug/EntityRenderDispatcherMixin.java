@@ -18,12 +18,14 @@ public abstract class EntityRenderDispatcherMixin {
         return 0.0;
     }
 
+    // see above
     @MCBug("MC-164129")
     @Redirect(method = "renderHitbox", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;getY()D", ordinal = 0))
     private double emulator114$fixDragonHitboxY(Entity dragon) {
         return 0.0;
     }
 
+    // see above
     @MCBug("MC-164129")
     @Redirect(method = "renderHitbox", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;getZ()D", ordinal = 0))
     private double emulator114$fixDragonHitboxZ(Entity dragon) {
