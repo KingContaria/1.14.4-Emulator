@@ -20,7 +20,7 @@ public abstract class TagContainerMixin {
     @ModifyExpressionValue(method = "method_18243", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ResourceManager;findResources(Ljava/lang/String;Ljava/util/function/Predicate;)Ljava/util/Collection;", remap = true), remap = false)
     private Collection<Identifier> emulator114$removeTags(Collection<Identifier> tags) {
         ResourceEditorUtil.Path path = new ResourceEditorUtil.Path("tags", ".json");
-        
+
         path.push("blocks");
         tags.remove(path.get("beehives"));
         tags.remove(path.get("bee_growables"));

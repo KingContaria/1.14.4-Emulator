@@ -4,7 +4,6 @@
   "package": "me.contaria.emulator114.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "predicate.ItemPredicateMixin",
     "animation.block.AbstractButtonBlockMixin",
     "animation.block.BellBlockMixin",
     "animation.block.CakeBlockMixin",
@@ -36,6 +35,7 @@
     "block.dispenser.DispenserBehaviour_MobHeadsMixins",
     "block.dispenser.DispenserBehaviourMixin",
     "block.entity.LootableContainerBlockEntityMixin",
+    "block.sapling.SaplingGeneratorMixin",
     "command.TextsMixin",
     "command.clone.CloneCommandMixin",
     "command.data.DataCommandMixin",
@@ -118,6 +118,7 @@
     "precisionloss.NetherPortalBlockMixin",
     "precisionloss.ParticleS2CPacketMixin",
     "precisionloss.TntBlockMixin",
+    "predicate.ItemPredicateMixin",
     "resources.MinecraftVersionMixin",
     "resources.advancement.ServerAdvancementLoaderMixin",
     "resources.loot.LootManagerMixin",
