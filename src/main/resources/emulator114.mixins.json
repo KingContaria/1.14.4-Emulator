@@ -154,6 +154,7 @@
     "client.gui.AbstractButtonWidgetMixin",
     "client.gui.AddServerScreenMixin",
     "client.gui.ChatHudMixin",
+    "client.gui.CommandSuggestorMixin",
     "client.gui.CreateWorldScreenMixin",
     "client.gui.DeathScreenMixin",
     "client.gui.DirectConnectScreenMixin",

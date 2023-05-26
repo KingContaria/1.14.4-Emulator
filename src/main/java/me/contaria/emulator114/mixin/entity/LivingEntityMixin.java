@@ -59,7 +59,9 @@ public abstract class LivingEntityMixin extends Entity {
      * @author contaria
      * @reason Where the game puts you on dismount changed, but I haven't found a nice way of reverting it yet so for now we just overwrite it with the original 1.14 method.
      */
+    // Bugreport: https://bugs.mojang.com/browse/MC-136367
     @Ugly
+    @MCBug("MC-136367")
     @Overwrite
     private void onDismounted(Entity vehicle) {
         if (vehicle instanceof BoatEntity || vehicle instanceof HorseBaseEntity) {
