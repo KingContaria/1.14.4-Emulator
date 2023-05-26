@@ -34,6 +34,7 @@
     "block.dispenser.DispenserBehaviour_FireworkRocketMixin",
     "block.dispenser.DispenserBehaviour_MobHeadsMixins",
     "block.dispenser.DispenserBehaviourMixin",
+    "block.entity.EndGatewayBlockEntityMixin",
     "block.entity.LootableContainerBlockEntityMixin",
     "block.sapling.SaplingGeneratorMixin",
     "command.TextsMixin",
