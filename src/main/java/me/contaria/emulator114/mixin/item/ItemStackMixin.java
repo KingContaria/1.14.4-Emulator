@@ -12,7 +12,7 @@ public abstract class ItemStackMixin {
 
     // Bugreport: https://bugs.mojang.com/browse/MC-125880, https://bugs.mojang.com/browse/MC-136352
     @MCBug({"MC-136352", "MC-125880"})
-    @Redirect(method = "<init>(Lnet/minecraft/item/ItemConvertible;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;isDamageable()Z"))
+    @Redirect(method = {"<init>(Lnet/minecraft/item/ItemConvertible;I)V", "setTag"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;isDamageable()Z"))
     private boolean emulator114$noSettingInitialDamage(Item item) {
         return false;
     }

@@ -145,8 +145,7 @@ public class Emulator114MixinConfigPlugin implements IMixinConfigPlugin, IModify
         if (cannotDisable != null) {
             throw new CannotDisableException(methodNameFromMixinPackageRoot, cannotDisable);
         }
-        AnnotationNode shadow = Annotations.getInvisible(method, Shadow.class);
-        if (shadow != null) {
+        if (Annotations.getInvisible(method, Shadow.class) != null) {
             throw new CannotDisableException(methodNameFromMixinPackageRoot, "Annotated by @Shadow.");
         }
         if (method.name.equals("<init>")) {

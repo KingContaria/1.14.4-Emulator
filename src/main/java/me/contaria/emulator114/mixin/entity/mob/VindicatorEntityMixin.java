@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(VindicatorEntity.class)
 public abstract class VindicatorEntityMixin {
 
-    // Bugreport: https://bugs.mojang.com/browse/MC-158484
-    @MCBug("MC-158484")
+    // Bugreports: https://bugs.mojang.com/browse/MC-158484, https://bugs.mojang.com/browse/MC-161902
+    @MCBug({"MC-158484", "MC-161902"})
     @SuppressWarnings("InvalidInjectorMethodSignature")
     @ModifyConstant(method = "mobTick", constant = @Constant(classValue = MobNavigation.class, ordinal = 0))
     private boolean emulator114$vindicatorsCrashWhenRidingEntities(Object o, Class<?> c) {
