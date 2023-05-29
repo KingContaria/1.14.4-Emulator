@@ -5,7 +5,10 @@ import me.contaria.emulator114.plugin.annotations.MCBug;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.entity.CommandBlockBlockEntity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.network.Packet;
+import net.minecraft.network.listener.PacketListener;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
@@ -33,5 +36,11 @@ public abstract class ServerPlayNetworkHandlerMixin {
     ))
     private double emulator114$accumulateFallDamageWhenJumpingOnBoat(double zero) {
         return Double.MAX_VALUE;
+    }
+
+    // Bugreport: https://bugs.mojang.com/browse/MC-132211
+    @MCBug("MC-132211")
+    @Redirect(method = "onBookUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/NetworkThreadUtils;forceMainThread(Lnet/minecraft/network/Packet;Lnet/minecraft/network/listener/PacketListener;Lnet/minecraft/server/world/ServerWorld;)V"))
+    private void emulator114$offThreadBookUpdates(Packet<?> packet, PacketListener listener, ServerWorld world) {
     }
 }
