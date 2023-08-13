@@ -16,4 +16,11 @@ public abstract class ItemStackMixin {
     private boolean emulator114$noSettingInitialDamage(Item item) {
         return false;
     }
+
+    // Bugreport: https://bugs.mojang.com/browse/MC-86619
+    @MCBug("MC-86619")
+    @Redirect(method = "copy", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z"))
+    private boolean emulator114$doNotReturnItemStackEMPTY(ItemStack itemStack) {
+        return false;
+    }
 }

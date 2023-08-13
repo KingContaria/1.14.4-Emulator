@@ -18,7 +18,6 @@ public abstract class MinecraftClientMixin {
 
     // Bugreport: https://bugs.mojang.com/browse/MC-158870
     @MCBug("MC-158870")
-    @SuppressWarnings("MixinAnnotationTarget")
     @ModifyConstant(method = "handleProfilerKeyPress", constant = @Constant(intValue = '\u001e'))
     private int emulator114$breakPieChart(int value) {
         return '.';
@@ -32,6 +31,7 @@ public abstract class MinecraftClientMixin {
     }
 
     // see above
+    @SuppressWarnings("InvalidInjectorMethodSignature")
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Ljava/lang/String;format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"), index = 1)
     private Object[] emulator114$modifyDebugScreenStringArgs(Object[] args) {
         args[args.length - 1] = "";
