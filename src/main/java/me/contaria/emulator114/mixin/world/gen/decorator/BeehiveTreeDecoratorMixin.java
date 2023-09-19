@@ -11,7 +11,6 @@ public abstract class BeehiveTreeDecoratorMixin {
 
     @Redirect(method = "generate", at = @At(value = "FIELD", target = "Lnet/minecraft/world/gen/decorator/BeehiveTreeDecorator;chance:F", opcode = Opcodes.GETFIELD))
     private float emulator114$noBeehives(BeehiveTreeDecorator decorator) {
-        System.out.println("eeeeeeee");
         return 0.0f;
     }
 }
