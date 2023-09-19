@@ -8,6 +8,10 @@
   "authors": [
     "KingContaria"
   ],
+  "contact": {
+    "sources": "https://github.com/KingContaria/1.14.4-Emulator",
+    "issues": "https://github.com/KingContaria/1.14.4-Emulator/issues"
+  },
 
   "license": "MIT",
 
