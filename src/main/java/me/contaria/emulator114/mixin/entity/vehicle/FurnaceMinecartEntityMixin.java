@@ -1,6 +1,7 @@
 package me.contaria.emulator114.mixin.entity.vehicle;
 
 import me.contaria.emulator114.plugin.annotations.MCBug;
+import me.contaria.emulator114.plugin.annotations.Ugly;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
@@ -32,6 +33,7 @@ public abstract class FurnaceMinecartEntityMixin extends AbstractMinecartEntity 
     @Shadow protected abstract double getMaxOffRailSpeed();
 
     // Bugreport: https://bugs.mojang.com/browse/MC-51053
+    @Ugly
     @MCBug("MC-51053")
     @Inject(method = "moveOnRail", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;sqrt(D)F", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void emulator114$slowDownOnCorners(BlockPos pos, BlockState state, CallbackInfo ci, double f, double g, Vec3d vec3d) {
