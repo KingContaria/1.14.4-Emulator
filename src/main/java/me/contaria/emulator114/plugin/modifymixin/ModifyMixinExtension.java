@@ -1,7 +1,7 @@
 package me.contaria.emulator114.plugin.modifymixin;
 
+import com.llamalad7.mixinextras.lib.apache.commons.tuple.Pair;
 import com.llamalad7.mixinextras.utils.MixinInternals;
-import org.apache.commons.lang3.tuple.Pair;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
