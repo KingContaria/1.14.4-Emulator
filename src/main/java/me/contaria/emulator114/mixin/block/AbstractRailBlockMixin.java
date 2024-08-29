@@ -1,12 +1,12 @@
 package me.contaria.emulator114.mixin.block;
 
-import me.contaria.emulator114.plugin.annotations.MCBug;
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
+import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.block.AbstractRailBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,8 +26,10 @@ public abstract class AbstractRailBlockMixin {
 
     // Bugreport: https://bugs.mojang.com/browse/MC-162261
     @MCBug("MC-162261")
-    @ModifyExpressionValue(method = "onBlockAdded", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;", ordinal = 0))
-    private Block emulator114$noImmediateClientSideUpdate(Block block, BlockState state, World world, BlockPos pos, BlockState oldState, boolean moved) {
-        return !world.isClient ? block : null;
+    @Definition(id = "getBlock", method = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;")
+    @Expression("?.getBlock() == ?.getBlock()")
+    @ModifyExpressionValue(method = "onBlockAdded", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
+    private boolean emulator114$noImmediateClientSideUpdate(boolean original, @Local(argsOnly = true) World world) {
+        return original && !world.isClient;
     }
 }

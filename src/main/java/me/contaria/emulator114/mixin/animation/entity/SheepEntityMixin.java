@@ -1,5 +1,6 @@
 package me.contaria.emulator114.mixin.animation.entity;
 
+import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.entity.EntityType;
@@ -21,7 +22,8 @@ public abstract class SheepEntityMixin extends AnimalEntity {
     // Reverts: "Added the hand use animation [...]: Shearing animals"
     // Bugreport: https://bugs.mojang.com/browse/MC-160896
     @MCBug("MC-160896")
-    @ModifyReturnValue(method = "interactMob", at = @At(value = "RETURN", ordinal = 0))
+    @Expression("return true")
+    @ModifyReturnValue(method = "interactMob", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
     private boolean emulator114$removeHandAnimation(boolean bl, PlayerEntity player, Hand hand) {
         return super.interactMob(player, hand);
     }

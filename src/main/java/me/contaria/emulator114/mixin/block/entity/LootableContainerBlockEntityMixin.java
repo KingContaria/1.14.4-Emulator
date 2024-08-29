@@ -1,6 +1,6 @@
 package me.contaria.emulator114.mixin.block.entity;
 
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import me.contaria.emulator114.plugin.annotations.MCBug;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
